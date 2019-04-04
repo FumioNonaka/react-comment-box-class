@@ -9,20 +9,28 @@ class App extends Component {
     super(props);
     this.state = {data: []};
     this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
+    this.removeComment = this.removeComment.bind(this);
   }
-  async componentDidMount() {
-    this.setState({data: await CommentStorage.fetch()});
+  componentDidMount() {
+    this.setState({data: CommentStorage.fetch()});
   }
   handleCommentSubmit(comment) {
-    console.log(comment);  // 確認用
     const data = [...this.state.data, comment];
     this.setState({data: data});
+    CommentStorage.save(data);
+  }
+  removeComment(removing) {
+    const data = this.state.data.filter(comment =>
+      (comment.author !== removing.author) || (comment.text !== removing.text)
+    );
+    this.setState({data: data});
+    CommentStorage.save(data);
   }
   render() {
     return (
       <div className="App">
         <h1>コメント</h1>
-        <CommentList data={this.state.data} />
+        <CommentList data={this.state.data} onRemoveComment={this.removeComment} />
         <CommentForm onCommentSubmit={this.handleCommentSubmit} />
       </div>
     );
