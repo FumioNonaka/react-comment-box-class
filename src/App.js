@@ -19,9 +19,9 @@ class App extends Component {
     this.setState({data: data});
     CommentStorage.save(data);
   }
-  removeComment(removing) {
+  removeComment(id) {
     const data = this.state.data.filter(comment =>
-      (comment.author !== removing.author) || (comment.text !== removing.text)
+      comment.id !== id
     );
     this.setState({data: data});
     CommentStorage.save(data);

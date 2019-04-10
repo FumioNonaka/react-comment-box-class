@@ -6,14 +6,18 @@ class CommentList extends Component {
     super(props);
     this.removeComment = this.removeComment.bind(this);
   }
-  removeComment(comment) {
-    this.props.onRemoveComment(comment);
+  removeComment(id) {
+    this.props.onRemoveComment(id);
   }
   render() {
-    const commentNodes = this.props.data.map((comment, id) =>
+    const commentNodes = this.props.data.map((comment) =>
       (
-        <Comment author={comment.author} key={comment.id} onRemoveComment={this.removeComment}>
-        {comment.text}
+        <Comment
+          author={comment.author}
+          id={comment.id}
+          key={comment.id}
+          onRemoveComment={this.removeComment}>
+          {comment.text}
         </Comment>
       )
     );
