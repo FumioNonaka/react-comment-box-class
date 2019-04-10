@@ -12,10 +12,7 @@ class Comment extends Component {
   }
   handleClick() {
     const props = this.props;
-    props.onRemoveComment({
-      author: props.author,
-      text: props.children.toString()
-    });
+    props.onRemoveComment(props.id);
   }
   render() {
     return (
